@@ -69,5 +69,5 @@ const deleteSongSearch = asyncHandler(async (req, res) => {
 });
 
 module.exports = {
-    deleteSongSearch,SearchSong,
+    deleteSongSearch,SearchSong
 };
