@@ -21,6 +21,11 @@ const playlistSchema = new Schema({
         type:Boolean,
         default:false
     },
+    artist:{
+        type:Schema.Types.ObjectId,
+        ref:'Artist',
+        required:true,
+    },
 },{timestamps:true});
 
 
