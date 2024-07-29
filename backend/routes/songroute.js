@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const {deleteSongSearch,SearchSong} = require('../controllers/songcontroller');
+const {deleteSongSearch,SearchSong, addSong, deleteSong} = require('../controllers/songcontroller');
 
 const {validateJWT } = require('../middlewares/validateJWT');
 
@@ -14,6 +14,9 @@ router.get('/search',SearchSong);
 
 router.delete('/',validateJWT,deleteSongSearch);
 
+
+router.post('/addsong',addSong);
+router.post('/delete/:id',deleteSong)
 module.exports = router;
 
 

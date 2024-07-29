@@ -1,5 +1,5 @@
-const Playlist = require('../models/Playlist');
-const Artist = require('../models/Artist');
+const Playlist = require('../models/playlists.models');
+const Artist = require('../models/artist.models');
 const asyncHandler = require('express-async-handler');
 
 // @desc    Get playlists by artist name

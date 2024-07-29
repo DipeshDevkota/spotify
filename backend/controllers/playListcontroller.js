@@ -1,4 +1,4 @@
-const Playlist = require('../models/playlistModel');
+const Playlist = require('../models/playlists.models.js');
 const asyncHandler = require('express-async-handler');
 
 // @desc    Create a new playlist

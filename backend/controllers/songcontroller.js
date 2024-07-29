@@ -3,6 +3,45 @@ const asyncHandler = require("express-async-handler")
 
 
 
+
+
+const addSong = asyncHandler(async(req,res)=>{
+  const {title,artist,album,genre,url}= req.body;
+  if(!title || !artist){
+    res.status(400).json({message:'Title and artist are required'});
+  }
+
+  try{
+    const NewSong= new Song({
+      title,
+      artist,
+      album,
+      genre,
+      url,
+    });
+    const SavedSong = await NewSong.save();
+    res.status(201).json(SavedSong);
+  }
+  catch (err){
+    res.status(500).json({message:err.message});
+  }
+});
+
+
+const deleteSong = asyncHandler(async(req,res)=>{
+  const {id} = req.params;
+  try{
+     const song = await Song.findByIdAndDelete(id);
+     if(!song){
+      return res.status(404).json({message:"Song not found"});
+     }
+     res.status(200).json({message:"Song deleted successfully",song});
+  }
+  catch(err){
+    res.status(500).json({message:err.message});
+  }
+})
+
 const SearchSong = asyncHandler(async(req,res)=>{
    
       const{title,artist,album,genre}= req.query;
@@ -69,5 +108,5 @@ const deleteSongSearch = asyncHandler(async (req, res) => {
 });
 
 module.exports = {
-    deleteSongSearch,SearchSong
+    deleteSongSearch,SearchSong,addSong,deleteSong
 };

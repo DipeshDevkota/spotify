@@ -4,7 +4,7 @@ const {createUser,loginUser} = require("../controllers/Usercontroller");
 
 
 //register a new user
-router.post('/resgiter',createUser);
+router.post('/register',createUser);
 
 
 

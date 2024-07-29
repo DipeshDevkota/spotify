@@ -1,6 +1,6 @@
 const User = require('../models/user.models');
 const asyncHandler = require("express-async-handler")
-const  bcrypt = require("bcryptjs");
+const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken")
 
 //registraion for a new user
@@ -11,18 +11,54 @@ const jwt = require("jsonwebtoken")
 
 const createUser = asyncHandler(async (req, res) => {
     const { name, email, password } = req.body;
+
     if (!name || !email || !password) {
-        throw new Error(400, "All fields are mandatory");
+        return res.status(400).json({ message: "All fields are mandatory" });
     }
 
+    // Check if the user already exists
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+        return res.status(400).json({ message: "User already exists" });
+    }
+
+    // Hash password
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    // Create new user
     const user = await User.create({
         name,
         email,
-        password
-    })
+        password: hashedPassword,
+    });
 
-    res.status(201).json(user)
-})
+    // Generate token
+    const payload = {
+        user: {
+            id: user.id,
+        },
+    };
+
+    jwt.sign(
+        payload,
+        process.env.JWT_SECRET_KEY,
+        { expiresIn: '4d' },
+        (err, token) => {
+            if (err) {
+                return res.status(500).json({ message: "Error generating token" });
+            }
+            res.status(201).json({
+                user: {
+                    id: user.id,
+                    name: user.name,
+                    email: user.email,
+                },
+                token,
+            });
+        }
+    );
+});
 
 
 ///login
@@ -57,6 +93,6 @@ const loginUser = asyncHandler(async (req, res) => {
 
 
 module.exports = {
-    createUser,loginUser
+    createUser, loginUser
 };
 

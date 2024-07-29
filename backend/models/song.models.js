@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-
+const { Schema } = mongoose;
 
 const songSchema = new Schema({
     title:{
@@ -17,7 +17,6 @@ const songSchema = new Schema({
     },
     duration:{
         type:Number,
-        required:true,
     },
     genre:{
         type:String,
