@@ -1,32 +1,55 @@
-import React from 'react';
+import React from 'react'
+import { assets } from '../assets/fullstack-spotify-assets/assets/frontend-assets/assets'
 
 const Sidebar = () => {
   return (
-    <div className="sidebar h-[10vh] w-80 flex flex-col items-start justify-between p-3 mb-4 bg-white">
-      <div className="sidebar-1 mb-4 bg-black p-2 w-full">
-        <h1 className="text-white mb-1">Home</h1>
-        <h1 className="text-white">Search</h1>
-      </div>
-      <div className="sidebar-2 mb-4 w-full bg-slate-500">
-        <h1 className="text-black p-3">Your Library</h1>
+    <div className='w-[25%] h-full p-2 flex flex-col gap-2 text-white hidden lg:flex'>
+      {/* Upper Section */}
+      <div className='bg-[#121212] h-[15%] rounded flex flex-col justify-around'>
+        <div className='flex items-center gap-3 pl-8 cursor-pointer'>
+          <img className='w-6' src={assets.home_icon} alt="Home"/>
+          <p className='font-bold'>Home</p>
+        </div>
+
+        <div className='flex items-center gap-3 pl-8 cursor-pointer'>
+          <img className='w-6' src={assets.search_icon} alt="Search"/>
+          <p className='font-bold'>Search</p>
+        </div>
       </div>
 
-      <div className="create mb-4 w-full bg-slate-700">
-  <h1 className="text-white mb-1  ml-3 p-2 text-2xl flex items-center whitespace-nowrap">
-    Create your first playlist
-  </h1>
-  <h2 className="text-white mb-2 text-sm p-2 ml-8">It's easy; we will help you</h2>
-  <button className="btn bg-slate-50 text-black p-2 rounded ml-16 mb-3">Create Playlist</button>
-</div>
+      {/* Lower Section */}
+      <div className='bg-[#121212] h-[10%] rounded mt-2'>
+        <div className='p-4 flex items-center justify-between'>
+          <div className='flex items-center gap-3'>
+            <img className='w-8' src={assets.stack_icon} alt="Your Library"/>
+            <p className='font-semibold'>Your Library</p>
+          </div>
 
-      
-      <div className="create w-full bg-slate-700 p-2">
-        <h5 className="text-white mb-1 text-xl p-1  mt-2">Let’s find some podcasts to follow</h5>
-        <h2 className="text-white mb-2 text-sm">We’ll keep you updated on new episodes</h2>
-        <button className="btn bg-slate-50 text-black p-2 rounded ml-12">Browse Podcasts</button>
+          <div className='flex items-center gap-3'>
+            <img className='w-5' src={assets.arrow_icon} alt="Arrow"/>
+            <img className='w-5' src={assets.plus_icon} alt="Plus"/>
+          </div>
+        </div>
+      </div>
+
+      {/* Bottom Section */}
+      <div className='p-4 bg-[#242424] m-2 rounded font-semibold flex flex-col items-start justify-start gap-1 pl-4'>
+         <h1>Create your first playlist</h1>
+         <p className='font-light'>It`s easy we will help you</p>
+         <button className='px-4 py-1.5 bg-white  text-black  rounded-full mt-4 text-[15px]' >Create Playlist</button>
+
+
+      </div>
+
+      <div className='p-4 bg-[#242424] m-2 rounded font-semibold flex flex-col items-start justify-start gap-1 pl-4 mt-4'>
+         <h1>Let`s find some podcasts to follow</h1>
+         <p className='font-light'>We`ll keep you update on new episodes</p>
+         <button className='px-4 py-1.5 bg-white  text-black  rounded-full mt-4 text-[15px]' >Browse Pocasts</button>
+
+
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Sidebar;
+export default Sidebar
