@@ -1,11 +1,13 @@
 import { useParams } from 'react-router-dom';
 import Navbar from './Navbar'; 
 import { albumsData, assets, songsData } from '../assets/fullstack-spotify-assets/assets/frontend-assets/assets';
+import { useContext } from 'react';
+import { PlayerContext } from '../context/PlayerContext';
 
 const DisplayAlbum = () => {
   const { id } = useParams();
   const albumData = albumsData[id];
-  console.log(albumData);
+  const {PlayWithId} = useContext(PlayerContext)
 
   return (
     <>
@@ -34,7 +36,7 @@ const DisplayAlbum = () => {
       </div>
       <hr />
       {songsData.map((item, index) => (
-        <div key={index} className='grid grid-cols-3 sm:grid-cols-4 gap-2 p-2 items-center text-[#a7a7a7] hover:bg-[#ffffff2b] cursor-pointer'>
+        <div onClick={()=>PlayWithId(item.id)} key={index} className='grid grid-cols-3 sm:grid-cols-4 gap-2 p-2 items-center text-[#a7a7a7] hover:bg-[#ffffff2b] cursor-pointer'>
           <p className='text-white'>
             <b className='mr-4 text-[#a7a7a7]'>
               {index + 1}
