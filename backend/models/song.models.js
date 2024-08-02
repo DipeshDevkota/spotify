@@ -3,25 +3,32 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const songSchema = new Schema({
-    title:{
+
+    name:{
         type:String,
         required:true,
 
     },
-    artist:{
+    desc:{
         type:String,
         required:true,
     },
     album:{
         type:String,
+        required:true,
+
     },
     duration:{
-        type:Number,
-    },
-    genre:{
         type:String,
+        required:true,
+
     },
-    url:{
+    image:{
+        type:String,
+        required:true,
+
+    },
+    file:{
         type:String,
         required:true,
     },

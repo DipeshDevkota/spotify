@@ -7,10 +7,11 @@ const userroute = require('./routes/userroute');
 const artistroute = require('./routes/artistroute');
 const songroute = require('./routes/songroute');
 const playlistRoutes = require('./routes/playlistroute');
-
+const connectCloudinary = require('./config/cloudinary')
 app.use(express.json());
 // app.use(cors());
 databaseConnection();
+connectCloudinary();
 
 app.get('/', (req, res) => {
     res.send("Hello, what's up");

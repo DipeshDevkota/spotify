@@ -1,20 +1,33 @@
 const Song =require("../models/song.models")
 const asyncHandler = require("express-async-handler")
-
+const cloudinary = require('cloudinary').v2;
+const songModel = require('../models/song.models')
 
 
 
 
 const addSong = asyncHandler(async(req,res)=>{
-  const {title,artist,album,genre,url}= req.body;
-  if(!title || !artist){
+try{
+  const name= req.body.name;
+  const desc= req.body.desc;
+  const album = req.body.album;
+  const audioFile = req.files.audio[0];
+  const imageFile = req.files.image[0];
+  const audioUpload = await cloudinary.uploader.upload(audioFile.path,{resource_type:"video"});
+  const imageUpload = await cloudinary.uploader.upload(imageFile.path,{resource_type:'image'});
+   console.log(name,email,album,audioUpload,imageUpload)
+}
+catch(error){
+
+}
+  if(!name || !artist){
     res.status(400).json({message:'Title and artist are required'});
   }
 
   try{
     const NewSong= new Song({
-      title,
-      artist,
+      name,
+      desc,
       album,
       genre,
       url,
@@ -107,6 +120,10 @@ const deleteSongSearch = asyncHandler(async (req, res) => {
     }
 });
 
+const listSong = async(req,res)=>{
+
+}
+
 module.exports = {
-    deleteSongSearch,SearchSong,addSong,deleteSong
+    deleteSongSearch,SearchSong,addSong,deleteSong,listSong
 };
