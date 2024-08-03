@@ -1,26 +1,22 @@
 const express = require('express');
 const router = express.Router();
-const upload = '../middlewares/multer.js'
-const {deleteSongSearch,SearchSong, addSong,listSong, deleteSong} = require('../controllers/songcontroller');
+const upload = require('../middlewares/multer'); // Corrected import path
+const { deleteSongSearch, searchSong, addSong, listSong, deleteSong } = require('../controllers/songcontroller');
+const { validateJWT } = require('../middlewares/validateJWT');
 
-const {validateJWT } = require('../middlewares/validateJWT');
+// Route to search for songs
+router.get('/search', searchSong);
 
+// Route to delete a song based on search
+router.delete('/', validateJWT, deleteSongSearch);
 
-//route to search for songs
-router.get('/search',SearchSong);
+// Route to add a song with image and audio
+router.post('/addsong', upload.fields([{ name: 'image', maxCount: 1 }, { name: 'audio', maxCount: 1 }]), addSong);
 
+// Route to list songs
+router.get('/list', listSong);
 
-//route to delete a song based on search 
+// Route to delete a song by ID
+router.post('/delete', deleteSong);
 
-router.delete('/',validateJWT,deleteSongSearch);
-
-
-router.post('/addsong',upload.files([{name:'image',maxCount:1},{name:'audio',maxCount:1}]),addSong);
-
-router.get('/list',listSong);
-router.post('/delete/:id',deleteSong)
 module.exports = router;
-
-
-
-
