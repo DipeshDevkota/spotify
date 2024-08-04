@@ -19,7 +19,7 @@ const createPlaylist = asyncHandler(async (req, res) => {
             user: userId,
         });
 
-        const savedPlayli  st = await newPlaylist.save();
+        const savedPlaylist = await newPlaylist.save();
         res.status(201).json(savedPlaylist);
     } catch (err) {
         res.status(500).json({ message: err.message });

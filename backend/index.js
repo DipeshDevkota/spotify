@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const port = 4000;
+const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const databaseConnection = require('./config/dbConnection');
 const userroute = require('./routes/userroute');
@@ -10,7 +11,7 @@ const playlistRoutes = require('./routes/playlistroute');
 const connectCloudinary = require('./config/cloudinary');
 const albumRouter = require('./routes/albumroute');
 app.use(express.json());
-// app.use(cors());
+app.use(cors());
 databaseConnection();
 connectCloudinary();
 
