@@ -1,35 +1,109 @@
-import React from 'react';
+import { assets } from "../../../admin-assets/assets";
+import { useState } from "react";
+import axios from "axios";
+import { url } from "../App";
+import { toast } from "react-toastify";
 
-const AddAlbum = () => {
-  return (
-    <div className="p-4 bg-gray-100 rounded-lg shadow-md">
-      <h1 className="text-2xl font-bold mb-4">Add Album</h1>
-      <form className="space-y-4">
-        <div>
-          <label className="block text-gray-700">Album Name:</label>
-          <input
-            type="text"
-            className="mt-1 p-2 w-full border border-gray-300 rounded-md"
-            placeholder="Enter album name"
-          />
-        </div>
-        <div>
-          <label className="block text-gray-700">Artist:</label>
-          <input
-            type="text"
-            className="mt-1 p-2 w-full border border-gray-300 rounded-md"
-            placeholder="Enter artist name"
-          />
-        </div>
-        <button
-          type="submit"
-          className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
-        >
-          Add Album
-        </button>
-      </form>
+const Addalbum = () => {
+  const [image, setImage] = useState(false);
+  const [colour, setColour] = useState("#121212");
+  const [name, setName] = useState("");
+  const [desc, setDesc] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const onSubmitHandler = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      const formData = new FormData();
+      formData.append("name", name);
+      formData.append("desc", desc);
+      formData.append("image", image);
+      formData.append("bgColour", colour);
+
+      const response = await axios.post(`${url}/api/album/add`, formData);
+
+      if (response.data.success) {
+        toast.success("Album added");
+        setImage(false);
+        setColour("#121212");
+        setName("");
+        setDesc("");
+      } else {
+        toast.error("Something went error");
+      }
+    } catch (error) {
+      toast.error("Error setting up request ");
+    }
+    setLoading(false);
+  };
+
+  return loading ? (
+    <div className="grid place-items-center min-h-[80vh]">
+      <div className="w-16 h-16 place-self-center border-4 border-gray-400 border-t-green-800 rounded-full animate-spin"></div>
     </div>
+  ) : (
+    <form
+      onSubmit={onSubmitHandler}
+      className="flex flex-col items-start gap-8 text-gray-600"
+    >
+      <div className="flx flex-col gap-4">
+        <p>Upload Image</p>
+        <input
+          onChange={(e) => setImage(e.target.files[0])}
+          type="file"
+          id="image"
+          accept="image/*"
+          hidden
+        />
+        <label htmlFor="image">
+          <img
+            className="w-24 cursor-pointer "
+            src={image ? URL.createObjectURL(image) : assets.upload_area}
+            alt=""
+          />
+        </label>
+      </div>
+
+      <div className="flex flex-col gap-2.5">
+        <p>Album Name</p>
+        <input
+          onChange={(e) => setName(e.target.value)}
+          value={name}
+          className="bg-transparent outline-green-600 border-gray-400 p-2.5 w-[max(40vw,250px)] "
+          type="text"
+          placeholder="Type Here"
+        />
+      </div>
+
+      <div className="flex flex-col gap-2.5">
+        <p>Album Description</p>
+        <input
+          onChange={(e) => setDesc(e.target.value)}
+          value={desc}
+          className="bg-transparent outline-green-600 border-gray-400 p-2.5 w-[max(40vw,250px)] "
+          type="text"
+          placeholder="Type Here"
+        />
+      </div>
+      <div className="flex flex-col gap-3">
+        <p>Background Colour</p>
+        <input
+          onChange={(e) => setColour(e.target.value)}
+          value={colour}
+          type="color"
+        />
+      </div>
+
+      <button
+       
+        className="text-base bg-black text-white p-3"
+      >
+        ADD
+      </button>
+    </form>
   );
 };
 
-export default AddAlbum;
+export default Addalbum;

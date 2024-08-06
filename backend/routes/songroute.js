@@ -17,6 +17,6 @@ router.post('/addsong', upload.fields([{ name: 'image', maxCount: 1 }, { name: '
 router.get('/list', listSong);
 
 // Route to delete a song by ID
-router.post('/delete', deleteSong);
+router.post('/delete/:songid', deleteSong);
 
 module.exports = router;

@@ -11,7 +11,7 @@ albumRouter.post('/add',upload.single('image'),addAlbum);
 
 albumRouter.get('/list',listAlbum);
 
-albumRouter.post('/remove',removeAlbum);
+albumRouter.delete('/remove/:id',removeAlbum);
 
 
 module.exports= albumRouter;

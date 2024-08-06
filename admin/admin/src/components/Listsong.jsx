@@ -22,7 +22,9 @@ const Listsong = () => {
 
 const removeSong = async (id) => {
     try {
-      const response = await axios.post(`${url}/api/songs/delete`, { id });
+      console.log(id);
+
+      const response = await axios.post(`${url}/api/songs/delete/${id}`);
       if (response.data.success) {
         toast.success(response.data.message);
         await fetchSongs();
@@ -62,7 +64,7 @@ const removeSong = async (id) => {
             <p>{song.name}</p>
             <p>{song.album}</p>
             <p>{song.duration}</p>
-            <p className='cursor-pointer text-red-500' onClick={() => removeSong(song.id)}>X</p>
+            <p className='cursor-pointer text-red-500' onClick={() => removeSong(song._id)}>X</p>
           </div>
         ))}
       </div>

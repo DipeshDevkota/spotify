@@ -54,20 +54,15 @@ const listAlbum = asyncHandler(async (req, res) => {
 });
 
 
-const removeAlbum = asyncHandler(async (req, res) => {
+const removeAlbum = async (req, res) => {
     try {
-
-        await Album.findByIdAndDelete(req.body.id);
-        res.json({ success: true, message: "Album removed" })
-
+        const albumId = req.params.id;
+        await Album.findByIdAndDelete(albumId);
+        res.json({ success: true, message: "Album removed" });
     } catch (error) {
-
-        res.json({ success: false })
-
+        res.status(500).json({ success: false, message: error.message });
     }
-
-
-});
+};
 
 module.exports = {
     addAlbum,

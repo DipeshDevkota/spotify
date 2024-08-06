@@ -33,8 +33,8 @@ const addSong = asyncHandler(async (req, res) => {
 
 const deleteSong = asyncHandler(async (req, res) => {
   try {
-    const song = await Song.findByIdAndDelete(req.body.id);
-
+    const song = await Song.findByIdAndDelete(req.params.songid);
+     console.log(req.params.songid)
     res.status(200).json({ message: "Song deleted successfully", song });
   } catch (err) {
     res.status(500).json({ message: err.message });

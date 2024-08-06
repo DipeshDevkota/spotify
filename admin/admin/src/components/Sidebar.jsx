@@ -26,7 +26,7 @@ const Sidebar = () => {
 
           </p>
           </NavLink>
-          <NavLink to='/list-song' className='flex items-center gap-2.5 text-gray-800 bg-white border border-black p-2 pr-[max(8vw,10px)] drop-shadow-[-4px_4px_#00FF5B] text-sm font-medium '>
+          <NavLink to='/list-album' className='flex items-center gap-2.5 text-gray-800 bg-white border border-black p-2 pr-[max(8vw,10px)] drop-shadow-[-4px_4px_#00FF5B] text-sm font-medium '>
           <img src={assets.add_song} className='w-5' alt=""/>
           <p className='hidden sm:block'>List Album
 
