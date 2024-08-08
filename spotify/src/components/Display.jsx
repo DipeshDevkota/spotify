@@ -1,16 +1,19 @@
 import { Routes,Route, useLocation } from 'react-router-dom'
 import DisplayHome from './DisplayHome'
 import DisplayAlbum from './DisplayAlbum'
-import { useEffect, useRef } from 'react'
+import { useContext, useEffect, useRef } from 'react'
 import {albumsData} from '../assets/fullstack-spotify-assets/assets/frontend-assets/assets'
+import { PlayerContext } from '../context/PlayerContext'
 const Display = () => {
 
+
+  const {albumsData} = useContext(PlayerContext)
 
   const displayRef= useRef();
   const location = useLocation();
   const isAlbum = location.pathname.includes("album");
-  const albumId = isAlbum? location.pathname.slice(-1): "";
-  const bgColor = albumsData[Number(albumId)].bgColor;
+  const albumId = isAlbum? location.pathname.split('/').pop():"";
+  const bgColor = isAlbum? albumsData.find((x)=>(x._id ==albumId)).bgColor:"#"
 
   useEffect(()=>{
     if(isAlbum){
@@ -25,7 +28,7 @@ const Display = () => {
     <div ref={displayRef} className='w-[100%] m-2 px-6 pt-4 ronded bg-neutral-950 text-white overflow-auto lg:w-[75%] lg:ml-0'>
        <Routes>
           <Route path='/' element={<DisplayHome/>}/>
-          <Route path ='/album/:id' element={<DisplayAlbum/>}/>
+          <Route path ='/album/:id' element={<DisplayAlbum />}/>
 
         </Routes> 
 
